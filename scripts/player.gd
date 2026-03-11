@@ -28,6 +28,12 @@ func _physics_process(delta: float):
 		direction = direction.normalized()
 		# configurando la propiedad Basis que afecta la rotación
 		$Pivot.basis = Basis.looking_at(direction)
+		# hace más rápidas las animaciones
+		$AnimationPlayer.speed_scale = 3
+	else:
+		$AnimationPlayer.speed_scale = 1
+	# arquearse al saltar
+	$Pivot.rotation.x = PI / 6 * velocity.y / jump_impulse
 	# vector velocidad en suelo
 	target_velocity.x = direction.x * speed
 	target_velocity.z = direction.z * speed
@@ -65,8 +71,6 @@ func _physics_process(delta: float):
 func die():
 	hit.emit()
 	queue_free()
-
-
 
 func _on_mob_detector_body_entered(body: Node3D) -> void:
 	die()

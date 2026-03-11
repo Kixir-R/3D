@@ -59,5 +59,6 @@ aabb = AABB(-1, -1, -1.6207347, 2, 2, 3.2414694)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=559639540]
 libraries/ = SubResource("AnimationLibrary_d4cuo")
+autoplay = &"Float"
 
 [connection signal="screen_exited" from="VisibleOnScreenNotifier3D" to="." method="_on_visible_on_screen_notifier_3d_screen_exited"]

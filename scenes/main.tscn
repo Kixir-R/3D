@@ -3,6 +3,8 @@
 [ext_resource type="PackedScene" uid="uid://bjix5syv7xgot" path="res://scenes/player.tscn" id="1_o5qli"]
 [ext_resource type="Script" uid="uid://cbcmjq7t3yxfm" path="res://scripts/main.gd" id="1_sugp2"]
 [ext_resource type="PackedScene" uid="uid://bw3grbaoy4fgc" path="res://scenes/mob.tscn" id="2_jyhfs"]
+[ext_resource type="FontFile" uid="uid://cyxhh7ddkn62q" path="res://assets/fonts/Montserrat-Medium.ttf" id="4_tbgi4"]
+[ext_resource type="Script" uid="uid://pfhxxbuac6s6" path="res://scripts/score_label.gd" id="5_tefeu"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_7dm0k"]
 size = Vector3(60, 2, 60)
@@ -23,6 +25,10 @@ _data = {
 "tilts": PackedFloat32Array(0, 0, 0, 0)
 }
 point_count = 4
+
+[sub_resource type="Theme" id="Theme_o6xl0"]
+default_font = ExtResource("4_tbgi4")
+default_font_size = 22
 
 [node name="Main" type="Node" unique_id=426261686]
 script = ExtResource("1_sugp2")
@@ -86,11 +92,28 @@ mesh = SubResource("CylinderMesh_tefeu")
 curve = SubResource("Curve3D_o6xl0")
 
 [node name="SpawnLocation" type="PathFollow3D" parent="SpawnPath" unique_id=1505561389]
-transform = Transform3D(0.0022571755, 0, -0.99999446, 0, 1, 0, 0.99999446, 0, 0.0022571755, -15.2585745, 0, -15.518831)
+transform = Transform3D(0.002257175, 0, -0.9999943, 0, 1, 0, 0.9999943, 0, 0.002257175, -15.2585745, 0, -15.518831)
 
 [node name="MobTimer" type="Timer" parent="." unique_id=341904534]
-wait_time = 0.5
+wait_time = 0.2
 autostart = true
+
+[node name="UserInterface" type="Control" parent="." unique_id=995296683]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme = SubResource("Theme_o6xl0")
+
+[node name="ScoreLabel" type="Label" parent="UserInterface" unique_id=1615364044]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("4_tbgi4")
+theme_override_font_sizes/font_size = 30
+text = "Puntaje: 0"
+script = ExtResource("5_tefeu")
 
 [connection signal="hit" from="Player" to="." method="_on_player_hit"]
 [connection signal="timeout" from="MobTimer" to="." method="_on_mob_timer_timeout"]

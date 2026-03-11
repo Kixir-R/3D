@@ -1,4 +1,6 @@
 extends CharacterBody3D
+
+signal hit
 # qué tan rápido se mueve el jugador en m/s
 @export var speed = 14
 # aceleración de caida en m/s2
@@ -6,7 +8,6 @@ extends CharacterBody3D
 @export var jump_impulse = 20
 @export var bounce_impulse = 16
 #Emitida cuando el jugador es golpeado por el enemigo
-signal hit
 var target_velocity = Vector3.ZERO
 func _physics_process(delta: float):
 # creamos una variable local para almacenar la dirección de entrada
@@ -35,6 +36,9 @@ func _physics_process(delta: float):
 		target_velocity.y = target_velocity.y- (fall_acceleration * delta)
 	# Moviendo al jugador
 	velocity = target_velocity
+	# Saltar solo si el jugador está en el suelo y se presiona "jump"
+	if is_on_floor() and Input.is_action_just_pressed("Jump"):
+		target_velocity.y = jump_impulse
 	# Iterar a través de todas las colisiones por frame
 	for index in range(get_slide_collision_count()):
 # Tomamos una de las colisiones con el caracter
@@ -47,7 +51,7 @@ func _physics_process(delta: float):
 		if collision.get_collider() == null:
 			continue
 # Si el collider es con un enemigo
-		if collision.get_collider().is_in_group("mob"):
+		if collision.get_collider().is_in_group("Mobs"):
 			var mob = collision.get_collider()
 # verficaremos que lo hemos golpeado desde arriba
 			if Vector3.UP.dot(collision.get_normal()) > 0.1:
@@ -61,9 +65,7 @@ func _physics_process(delta: float):
 func die():
 	hit.emit()
 	queue_free()
-# Saltar solo si el jugador está en el suelo y se presiona "jump"
-	if is_on_floor() and Input.is_action_just_pressed("Jump"):
-		target_velocity.y = jump_impulse
+
 
 
 func _on_mob_detector_body_entered(body: Node3D) -> void:

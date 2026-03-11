@@ -4,10 +4,10 @@
 [ext_resource type="PackedScene" uid="uid://d0ypm0v45pwdv" path="res://assets/art/player.glb" id="2_qhqgy"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_dqkch"]
-radius = 1.0
+radius = 1.1691594
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_g2els"]
-height = 1.4653931
+height = 1.4626639
 radius = 1.0
 
 [node name="Player" type="CharacterBody3D" unique_id=1292951848]
@@ -28,7 +28,7 @@ collision_mask = 2
 monitorable = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="MobDetector" unique_id=1122911521]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.36080933, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.36217391, 0)
 shape = SubResource("CylinderShape3D_g2els")
 
 [connection signal="body_entered" from="MobDetector" to="." method="_on_mob_detector_body_entered"]

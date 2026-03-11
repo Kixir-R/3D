@@ -11,7 +11,7 @@ func _process(delta: float) -> void:
 	pass
 
 
-func _on_mob_timer_timeout() -> void:
+func _on_mob_timer_timeout():
 
 	# creamos una nueva instancia de la escena Mob
 	var mob = mob_scene.instantiate()
@@ -24,3 +24,7 @@ func _on_mob_timer_timeout() -> void:
 	mob.initialize(mob_spawn_location.position, player_position)
 	# aparecemos al mob por agregarlo a la escena principal
 	add_child(mob)
+
+
+func _on_player_hit():
+	$MobTimer.stop()

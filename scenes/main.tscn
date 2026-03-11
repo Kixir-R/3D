@@ -1,0 +1,95 @@
+[gd_scene format=3 uid="uid://c8trnpo3577yl"]
+
+[ext_resource type="PackedScene" uid="uid://bjix5syv7xgot" path="res://scenes/player.tscn" id="1_o5qli"]
+[ext_resource type="Script" uid="uid://cbcmjq7t3yxfm" path="res://scripts/main.gd" id="1_sugp2"]
+[ext_resource type="PackedScene" uid="uid://bw3grbaoy4fgc" path="res://scenes/mob.tscn" id="2_jyhfs"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7dm0k"]
+size = Vector3(60, 2, 60)
+
+[sub_resource type="BoxMesh" id="BoxMesh_ig7tw"]
+size = Vector3(60, 2, 60)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tbgi4"]
+albedo_color = Color(0, 0.019607844, 1, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_tefeu"]
+material = SubResource("StandardMaterial3D_tbgi4")
+
+[sub_resource type="Curve3D" id="Curve3D_o6xl0"]
+closed = true
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -15.2585745, 0, -15.518831, 0, 0, 0, 0, 0, 0, 13.566764, 0, -15.5838995, 0, 0, 0, 0, 0, 0, 13.827037, 0, 15.77911, 0, 0, 0, 0, 0, 0, -14.933232, 0, 15.844179),
+"tilts": PackedFloat32Array(0, 0, 0, 0)
+}
+point_count = 4
+
+[node name="Main" type="Node" unique_id=426261686]
+script = ExtResource("1_sugp2")
+mob_scene = ExtResource("2_jyhfs")
+
+[node name="Ground" type="StaticBody3D" parent="." unique_id=1265228623]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+collision_layer = 4
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground" unique_id=1566287961]
+transform = Transform3D(0.9999999, 0.0004537856, 0, -0.0004537856, 0.9999999, 0, 0, 0, 1, 0.015014648, 0, 0)
+shape = SubResource("BoxShape3D_7dm0k")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground" unique_id=834439668]
+mesh = SubResource("BoxMesh_ig7tw")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=2028567410]
+transform = Transform3D(1, 0, 0, 0, -0.19764024, 0.9802746, 0, -0.9802746, -0.19764024, -0.10425758, 18.498756, 0)
+shadow_enabled = true
+
+[node name="Player" parent="." unique_id=1292951848 instance=ExtResource("1_o5qli")]
+
+[node name="CameraPivot" type="Marker3D" parent="." unique_id=1272465505]
+transform = Transform3D(1, 0, 0, 0, 0.70710677, 0.70710677, 0, -0.70710677, 0.70710677, 0, 0, 0)
+
+[node name="Camera3D" type="Camera3D" parent="CameraPivot" unique_id=1854804821]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 20)
+projection = 1
+size = 20.0
+far = 100.0
+
+[node name="Cylinders" type="Node3D" parent="." unique_id=2045900597]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28.768661, 0, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Cylinders" unique_id=831990864]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.141533, 0, -15.45524)
+mesh = SubResource("CylinderMesh_tefeu")
+
+[node name="Cylinders2" type="Node3D" parent="." unique_id=855929694]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Cylinders2" unique_id=1728560883]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.141533, 0, -15.45524)
+mesh = SubResource("CylinderMesh_tefeu")
+
+[node name="Cylinders3" type="Node3D" parent="." unique_id=310826854]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29.030197, 0, 31.384003)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Cylinders3" unique_id=10144930]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.141533, 0, -15.45524)
+mesh = SubResource("CylinderMesh_tefeu")
+
+[node name="Cylinders4" type="Node3D" parent="." unique_id=1345477696]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.26153564, 0, 31.384003)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Cylinders4" unique_id=2038145357]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.141533, 0, -15.45524)
+mesh = SubResource("CylinderMesh_tefeu")
+
+[node name="SpawnPath" type="Path3D" parent="." unique_id=1790033965]
+curve = SubResource("Curve3D_o6xl0")
+
+[node name="SpawnLocation" type="PathFollow3D" parent="SpawnPath" unique_id=1505561389]
+transform = Transform3D(0.00225718, 0, -0.99999636, 0, 1, 0, 0.99999636, 0, 0.00225718, -15.2585745, 0, -15.518831)
+
+[node name="MobTimer" type="Timer" parent="." unique_id=341904534]
+wait_time = 0.5
+autostart = true
+
+[connection signal="timeout" from="MobTimer" to="." method="_on_mob_timer_timeout"]

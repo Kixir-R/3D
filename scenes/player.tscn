@@ -23,7 +23,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.292, 0)
 shape = SubResource("SphereShape3D_dqkch")
 
 [node name="MobDetector" type="Area3D" parent="." unique_id=106811478]
+collision_layer = 0
+collision_mask = 2
+monitorable = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="MobDetector" unique_id=1122911521]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.36080933, 0)
 shape = SubResource("CylinderShape3D_g2els")
+
+[connection signal="body_entered" from="MobDetector" to="." method="_on_mob_detector_body_entered"]

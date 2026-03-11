@@ -5,7 +5,8 @@ extends CharacterBody3D
 @export var fall_acceleration = 75
 @export var jump_impulse = 20
 @export var bounce_impulse = 16
-
+#Emitida cuando el jugador es golpeado por el enemigo
+signal hit
 var target_velocity = Vector3.ZERO
 func _physics_process(delta: float):
 # creamos una variable local para almacenar la dirección de entrada
@@ -57,6 +58,13 @@ func _physics_process(delta: float):
 				break
 	move_and_slide()
 
+func die():
+	hit.emit()
+	queue_free()
 # Saltar solo si el jugador está en el suelo y se presiona "jump"
 	if is_on_floor() and Input.is_action_just_pressed("Jump"):
 		target_velocity.y = jump_impulse
+
+
+func _on_mob_detector_body_entered(body: Node3D) -> void:
+	die()
